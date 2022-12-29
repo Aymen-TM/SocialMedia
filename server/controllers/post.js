@@ -61,6 +61,8 @@ const likePost = async (req,res)=>{
         const {id} = req.params
         const {userId} = req.body
 
+        
+
         const post = await Post.findById(id)
 
         const isLiked = post.likes.get(userId)
@@ -71,15 +73,20 @@ const likePost = async (req,res)=>{
             post.likes.set(userId,true)
         }
 
-        const updatedPost = Post.findByIdAndUpdate(id,{
+        const updatedPost = await Post.findByIdAndUpdate(id,{
             likes:post.likes
         },
         {new:true}
         )
 
+        updatedPost.save()
+
+
+
         res.status(200).json(updatedPost)
 
     } catch (error) {
+        console.log(error.message);
         res.status(404).json({message:error.message})
     }
 }
