@@ -6,7 +6,7 @@ const createPost = async (req,res)=>{
     try {
         const {userId,description,picturePath} = req.body
 
-        const user = await User.findById({userId})
+        const user = await User.findById(userId)
 
         const newPost = new Post({
             userId,
@@ -22,9 +22,9 @@ const createPost = async (req,res)=>{
 
         await newPost.save()
 
-        const post = await Post.find()
+        const posts = await Post.find()
 
-        res.status(201).json(post)
+        res.status(201).json(posts)
 
     } catch (error) {
         res.status(409).json({message:error.message})
@@ -47,7 +47,7 @@ const getUserPosts = async (req,res)=>{
     try {
         const {userId} = req.params
 
-        const userPosts = await Post.find({userId})
+        const userPosts = await Post.find(userId)
 
         res.status(200).json(userPosts)
 
@@ -61,7 +61,7 @@ const likePost = async (req,res)=>{
         const {id} = req.params
         const {userId} = req.body
 
-        const post = await Post.findById({id})
+        const post = await Post.findById(id)
 
         const isLiked = post.likes.get(userId)
 
@@ -77,7 +77,7 @@ const likePost = async (req,res)=>{
         {new:true}
         )
 
-        res.status(200).json(userPosts)
+        res.status(200).json(updatedPost)
 
     } catch (error) {
         res.status(404).json({message:error.message})
