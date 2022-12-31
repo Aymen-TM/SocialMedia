@@ -14,19 +14,21 @@ const getUser = async (req,res)=>{
 const getUserFriends = async (req,res)=>{
     try {
         const {id} = req.params 
-        const user = await User.findById({id})
-
+        const user = await User.findById(id)
         const friends = await Promise.all(
-            user.friends.map((id)=>User.findById({id}))
+            user.friends.map((_id)=>User.findById(_id))
         )
 
-        const fromattedFriends = friends.map(
-            ({_id,firstName,lastName,email,occupation,location,picturePath})=>{_id,firstName,lastName,email,occupation,location,picturePath}
-            )
-        res.status(200).json(fromattedFriends)
+        const formattedFriends = friends.map(
+            ({ _id, firstName, lastName, occupation, location, picturePath }) => {
+              return { _id, firstName, lastName, occupation, location, picturePath };
+            }
+          );
+        console.log(formattedFriends);
+        res.status(200).json(formattedFriends)
 
     } catch (error) {
-        res.status(404).json({ error: err.message });
+        res.status(404).json({ message: error.message });
     }
 }
 
@@ -50,10 +52,10 @@ const addRemoveFriend = async (req,res)=>{
           user.friends.map((id) => User.findById(id))
         );
         const formattedFriends = friends.map(
-          ({ _id, firstName, lastName, occupation, location, picturePath }) => {
-            return { _id, firstName, lastName, occupation, location, picturePath };
-          }
-        );
+            ({ _id, firstName, lastName, occupation, location, picturePath }) => {
+              return { _id, firstName, lastName, occupation, location, picturePath };
+            }
+          );
     
         res.status(200).json(formattedFriends);
     } catch (error) {

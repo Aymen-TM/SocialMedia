@@ -16,7 +16,7 @@ function loginPage() {
             fontSize="32px"
             color="primary"
           >
-            Sociopedia
+            Chkopedia
           </Typography>
         </Box>
         <Box background={alt}  width={isNoneMobileScreens ? "50%":"93%"} m="2rem auto" p="2rem" borderRadius="1.5rem" textAlign={"center"}>
@@ -25,7 +25,7 @@ function loginPage() {
             variant='h5'
             mb="1.5rem"
           >
-            Welcom to Sociopedia,the Social Media for Sociopath 
+            Welcom to Chkopedia,the Social Media for Sociopath 
           </Typography>
           <Form />
         </Box>
