@@ -33,7 +33,8 @@ const createPost = async (req,res)=>{
 
 const getFeedPosts = async (req,res)=>{
     try {
-        const post = await Post.find()
+        const post = await Post.find().sort({createdAt: -1});
+        console.log(post);
 
         res.status(200).json(post)
 
@@ -47,7 +48,7 @@ const getUserPosts = async (req,res)=>{
     try {
         const {userId} = req.params
 
-        const userPosts = await Post.find(userId)
+        const userPosts = await Post.find({userId})
 
         res.status(200).json(userPosts)
 

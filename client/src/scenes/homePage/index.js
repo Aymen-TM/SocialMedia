@@ -21,7 +21,7 @@ function homePage() {
         </Box>
         <Box flexBasis={isNoneMobileScreen ? "42%":undefined}>
           <MyPostWidget picturePath={picturePath} />
-          <PostsWidget userId={_id} />
+          <PostsWidget userId={_id} isProfile={false} />
         </Box>
         {isNoneMobileScreen && (
           <Box flexBasis="26%">
